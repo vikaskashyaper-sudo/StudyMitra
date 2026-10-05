@@ -22,6 +22,13 @@ export async function generateMetadata({ params }: BookPageProps): Promise<Metad
   return {
     title: book.title,
     description: book.description,
+    alternates: { canonical: `/books/${book.slug}` },
+    openGraph: {
+      type: "article",
+      title: book.title,
+      description: book.description,
+      url: `/books/${book.slug}`,
+    },
   };
 }
 

@@ -11,12 +11,14 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.siteName}`,
   },
   description: siteConfig.siteDescription,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_IN",
     siteName: siteConfig.siteName,
     title: siteConfig.siteName,
     description: siteConfig.siteDescription,
+    url: siteConfig.siteUrl,
   },
   twitter: {
     card: "summary_large_image",

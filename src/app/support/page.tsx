@@ -17,7 +17,7 @@ export default function SupportPage() {
         <SupportActions />
       </div>
 
-      <div className="mt-8 rounded-xl border border-border bg-surface-alt p-6">
+      {siteConfig.contactEmail && <div className="mt-8 rounded-xl border border-border bg-surface-alt p-6">
         <h2 className="text-lg font-semibold">Get in touch</h2>
         <p className="mt-2 text-sm text-text-muted">
           Questions or feedback? Email us at{" "}
@@ -29,7 +29,7 @@ export default function SupportPage() {
           </a>
           .
         </p>
-      </div>
+      </div>}
     </div>
   );
 }

@@ -1,10 +1,10 @@
 # StudyMitra
 
-StudyMitra is a student friendly library of free educational e-books and study materials. The current project is an MVP with sample book listings; PDF downloads, covers, and support payment details remain placeholders until real materials are supplied.
+StudyMitra is a student friendly library of free educational e-books and study materials. Book pages, search, filters, and SEO are generated from the entries in `data/books.ts`.
 
 ## Run locally
 
-Install [Node.js](https://nodejs.org/) (LTS) and Git, then from this folder run:
+Install Node.js (LTS) and Git, then from this folder run:
 
 ```bash
 npm install
@@ -13,32 +13,46 @@ npm run dev
 
 Open <http://localhost:3000>. To make and run a production build locally, use `npm run build` and then `npm start`.
 
-## Add books and files later
+## Add a book
 
-1. Put each PDF in `public/books/` and each cover image in `public/covers/`. Use simple filenames based on the book slug, for example `class-10-maths-chapter-1.pdf` and `class-10-maths-chapter-1.webp`.
-2. Add or update the book entry in `data/books.ts`. Keep `slug` unique and set `pdf` and `cover` to paths beginning with `/books/` and `/covers/`. Update the title, description, class, subject, category, author, file size, published date, featured flag, and tags as appropriate.
-3. If the PDF is not ready, leave the configured path in place; the site will show its existing “coming soon” state until the file exists. Missing covers have a fallback.
-4. To replace the support QR image, add the image to `public/images/` and update `qrCode` in `config/siteConfig.ts` to its public path.
-5. To enable support payments, replace `upiId` in `config/siteConfig.ts` with the intended public UPI ID and set the matching QR image. The placeholder keeps payment actions disabled.
+1. Add the PDF as `public/books/<slug>.pdf`.
+2. Add an optional cover as `public/covers/<slug>.webp`. Missing PDFs show “PDF coming soon”; missing covers show a fallback.
+3. Add one entry to `data/books.ts`. Use the same unique slug and predictable paths:
 
-After making changes, run `npm run lint`, `npx tsc --noEmit`, and `npm run build` before committing.
+   ```ts
+   {
+     id: "class-8-science-chapter-1",
+     slug: "class-8-science-chapter-1",
+     title: "Class 8 Science - Chapter 1",
+     description: "A short description of this book.",
+     class: "Class 8",
+     subject: "Science",
+     category: "Science & Maths",
+     author: "StudyMitra",
+     pdf: "/books/class-8-science-chapter-1.pdf",
+     cover: "/covers/class-8-science-chapter-1.webp",
+     featured: false,
+     tags: ["Science", "Class 8"],
+   }
+   ```
+
+   `fileSize` and `publishedDate` are optional. The library card, detail page, search, filters, download state, metadata, and sitemap entry update from this single record.
+4. Check and publish the change:
+
+   ```bash
+   git add data/books.ts public/books/<slug>.pdf public/covers/<slug>.webp
+   git commit -m "Add <book name>"
+   git push origin main
+   ```
+
+   Omit the cover path from `git add` when you do not have one. Netlify automatically deploys commits pushed to its configured production branch.
+
+## Site and support settings
+
+Public site settings live in `config/siteConfig.ts`. `NEXT_PUBLIC_SITE_URL` overrides the URL when needed; Netlify's `URL` is used on deploy, with `https://studymitra.netlify.app` as the fallback. The free Netlify subdomain is the current production address.
+
+UPI ID, display name, suggested amounts, and QR image path are in that same config. Leave the UPI placeholder until real payment details are available; payment actions stay disabled. Put a future QR image under `public/images/` and set `qrCode` to its public path. Contact email, WhatsApp, and social links are optional and should only be set to real accounts.
 
 ## Deploy to Netlify
 
-Connect the GitHub repository in Netlify using **Add new site → Import an existing project**. Netlify detects Next.js; the standard build command is `npm run build` and the publish directory is managed by the Next.js runtime integration. Do not set a static export. No extra Netlify configuration file is needed for this project.
-
-Once connected, Netlify builds the production site on each push to the connected production branch. Updates follow this cycle:
-
-```text
-edit files → git add/commit → git push → Netlify builds and publishes
-```
-
-For example:
-
-```bash
-git add .
-git commit -m "Update book details"
-git push
-```
-
-The first setup requires a GitHub account and repository, then a Netlify account and importing that repository. The GitHub remote URL is specific to the repository you create; add it as `origin` only after creating that repository.
+Connect this GitHub repository as a Netlify site and select the intended production branch (currently `main`). Netlify detects Next.js and builds with `npm run build`; the Next.js runtime manages publishing. No static export or repository-side Netlify config is needed. Once connected, pushes to the production branch deploy automatically.

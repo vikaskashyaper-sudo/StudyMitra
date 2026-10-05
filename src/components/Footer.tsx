@@ -36,14 +36,16 @@ export function Footer() {
           </nav>
 
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-semibold text-text">Contact</p>
-            <a
+            {(siteConfig.contactEmail || siteConfig.whatsapp || siteConfig.socialLinks.length > 0) && (
+              <p className="text-sm font-semibold text-text">Contact</p>
+            )}
+            {siteConfig.contactEmail && <a
               href={`mailto:${siteConfig.contactEmail}`}
               className="flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-primary"
             >
               <MailIcon className="h-4 w-4" />
               {siteConfig.contactEmail}
-            </a>
+            </a>}
             {siteConfig.whatsapp && (
               <a
                 href={`https://wa.me/${siteConfig.whatsapp}`}
