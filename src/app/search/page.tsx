@@ -3,10 +3,11 @@ import { getAllBooks } from "@/lib/getBooks";
 import { searchBooks } from "@/lib/searchBooks";
 import { BookCard } from "@/components/BookCard";
 import { SearchForm } from "@/components/SearchForm";
+import { siteConfig } from "@/config/siteConfig";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search the StudyMitra library of free educational e-books.",
+  description: `Search the ${siteConfig.siteName} library of free educational e-books.`,
 };
 
 type SearchPageProps = {
@@ -23,7 +24,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <h1 className="text-3xl font-bold sm:text-4xl">Search</h1>
       <p className="mt-3 text-text-muted">
-        Find e-books by title, subject, class, category, or tag.
+        Find e-books by title, author, subject, class, category, or tag.
       </p>
 
       <SearchForm className="mt-6 max-w-xl" initialQuery={trimmed} />

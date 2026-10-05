@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function SupportPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-      <h1 className="text-3xl font-bold sm:text-4xl">Support StudyMitra</h1>
+      <h1 className="text-3xl font-bold sm:text-4xl">Support {siteConfig.siteName}</h1>
       <p className="mt-4 text-text-muted">{siteConfig.supportMessage}</p>
 
       <div className="mt-8">

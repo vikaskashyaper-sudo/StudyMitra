@@ -49,7 +49,7 @@ export function SupportActions() {
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={siteConfig.qrCode}
-              alt="StudyMitra UPI QR code"
+              alt={`${siteConfig.siteName} UPI QR code`}
               className="h-full w-full object-contain"
               onError={() => setQrFailed(true)}
             />

@@ -23,6 +23,7 @@ export function BookLibrary({ books, classes, subjects, categories }: BookLibrar
       const matchesQuery = !normalizedQuery || [
         book.title,
         book.description,
+        book.author,
         book.class,
         book.subject,
         book.category,
