@@ -1,6 +1,8 @@
 export const siteConfig = {
   siteName: "StudyMitra",
-  siteUrl: "https://studymitra.in",
+  // Set NEXT_PUBLIC_SITE_URL for a custom deployment URL; Netlify provides URL
+  // automatically. The localhost fallback keeps local builds valid.
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || process.env.URL || "http://localhost:3000",
   siteTagline: "Free Educational E-Books & Study Materials",
   siteDescription:
     "Learn better with free, accessible and student-friendly educational resources.",
