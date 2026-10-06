@@ -1,6 +1,6 @@
 import type { Book } from "@/types/book";
 
-export const books: Book[] = [
+const unsortedBooks: Book[] = [
   {
     id: "class-10-maths-chapter-1",
     title: "Class 10 Mathematics - Chapter 1: Real Numbers",
@@ -138,3 +138,8 @@ export const books: Book[] = [
     tags: ["English", "Class 10", "NCERT", "First Flight", "CBSE"],
   },
 ];
+
+export const books: Book[] = unsortedBooks.sort((a, b) => {
+  if (!a.publishedDate || !b.publishedDate) return 0;
+  return new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime();
+});

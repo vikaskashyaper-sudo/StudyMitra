@@ -15,37 +15,51 @@ Open <http://localhost:3000>. To make and run a production build locally, use `n
 
 ## Add a book
 
-1. Add the PDF as `public/books/<slug>.pdf`.
-2. Add an optional cover as `public/covers/<slug>.webp`. Missing PDFs show “PDF coming soon”; missing covers show a fallback.
-3. Add one entry to `data/books.ts`. Use the same unique slug and predictable paths:
+Each book requires a single entry in `data/books.ts` with a unique `id` and `slug`. Add the PDF and cover (optional) with matching filenames, then commit.
 
-   ```ts
-   {
-     id: "class-8-science-chapter-1",
-     slug: "class-8-science-chapter-1",
-     title: "Class 8 Science - Chapter 1",
-     description: "A short description of this book.",
-     class: "Class 8",
-     subject: "Science",
-     category: "Science & Maths",
-     author: "StudyMitra",
-     pdf: "/books/class-8-science-chapter-1.pdf",
-     cover: "/covers/class-8-science-chapter-1.webp",
-     featured: false,
-     tags: ["Science", "Class 8"],
-   }
-   ```
+### Quick checklist
 
-   `fileSize` and `publishedDate` are optional. The library card, detail page, search, filters, download state, metadata, and sitemap entry update from this single record.
-4. Check and publish the change:
+1. **Add PDF** (required): Save as `public/books/<slug>.pdf`
+2. **Add cover** (optional): Save as `public/covers/<slug>.webp` (missing covers show a fallback)
+3. **Add entry** to `data/books.ts`:
+   - Use the same `slug` for the filename and entry
+   - Keep `id` and `slug` unique across all books
+   - Use lowercase alphanumeric with hyphens only
+   - Include `publishedDate` in `YYYY-MM-DD` format for automatic sorting
 
-   ```bash
-   git add data/books.ts public/books/<slug>.pdf public/covers/<slug>.webp
-   git commit -m "Add <book name>"
-   git push origin main
-   ```
+### Example entry
 
-   Omit the cover path from `git add` when you do not have one. Netlify automatically deploys commits pushed to its configured production branch.
+```ts
+{
+  id: “class-8-science-chapter-1”,
+  slug: “class-8-science-chapter-1”,
+  title: “Class 8 Science - Chapter 1”,
+  description: “A short description of this book.”,
+  class: “Class 8”,
+  subject: “Science”,
+  category: “Science & Maths”,
+  author: “StudyMitra”,
+  pdf: “/books/class-8-science-chapter-1.pdf”,
+  cover: “/covers/class-8-science-chapter-1.webp”,
+  publishedDate: “2024-03-15”,
+  fileSize: “2.5 MB”,
+  featured: false,
+  tags: [“Science”, “Class 8”, “NCERT”],
+}
+```
+
+Optional fields: `fileSize`, `publishedDate`, `featured`. Updates to cards, detail pages, search, filters, metadata, and sitemap are automatic.
+
+### Publish
+
+```bash
+npm run validate    # Check for duplicate IDs, invalid slugs, missing files
+git add data/books.ts public/books/<slug>.pdf public/covers/<slug>.webp
+git commit -m “Add <book name>”
+git push origin main
+```
+
+Netlify deploys automatically when commits reach the production branch. Omit the cover path from `git add` if not available.
 
 ## Site and support settings
 

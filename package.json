@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "validate": "node scripts/validate-books.js",
+    "build": "npm run validate && next build",
     "start": "next start",
     "lint": "eslint ."
   },
